@@ -6,6 +6,8 @@
 # a list of version numbers.
 FROM phusion/baseimage:0.9.15
 
+MAINTAINER okko
+
 # Set correct environment variables.
 ENV HOME /root
 
@@ -17,7 +19,12 @@ RUN /etc/my_init.d/00_regen_ssh_host_keys.sh
 # Use baseimage-docker's init system.
 CMD ["/sbin/my_init"]
 
-MAINTAINER Abhinav Pobbati <apobbati@codeblock.io>
+#######################################
+#######################################
+#######################################
+#######################################
+
+RUN apt-get install -y wget unzip
 
 WORKDIR /opt/titan-0.5.2-hadoop2
 
@@ -34,6 +41,11 @@ EXPOSE 8183
 EXPOSE 8184
 
 CMD ["/bin/sh", "-e", "/opt/titan-0.5.2-hadoop2/run.sh"]
+
+#######################################
+#######################################
+#######################################
+#######################################
 
 # Clean up APT when done.
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
