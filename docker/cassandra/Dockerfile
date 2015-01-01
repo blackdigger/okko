@@ -3,26 +3,8 @@
 ##    https://git.openstack.org/cgit/stackforge/poppy/tree/docker/cassandra/Dockerfile?id=686630e56ef5fdaf0aa0cf77c26fec2a45f8ddd7
 ##
 
-FROM ubuntu
-MAINTAINER Tony Tan, tonytan198211@gmail.com
-
-# Add PPA for the necessary JDK
-RUN echo "deb http://ppa.launchpad.net/webupd8team/java/ubuntu precise main" | tee /etc/apt/sources.list.d/webupd8team-java.list
-RUN echo "deb-src http://ppa.launchpad.net/webupd8team/java/ubuntu precise main" | tee -a /etc/apt/sources.list.d/webupd8team-java.list
-RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys EEA14886
-RUN apt-get update
-
-# Install other packages
-RUN apt-get install -y curl
-
-# Preemptively accept the Oracle License
-RUN echo "oracle-java7-installer	shared/accepted-oracle-license-v1-1	boolean	true" > /tmp/oracle-license-debconf
-RUN /usr/bin/debconf-set-selections /tmp/oracle-license-debconf
-RUN rm /tmp/oracle-license-debconf
-
-# Install the JDK
-RUN apt-get install -y oracle-java7-installer oracle-java7-set-default
-RUN apt-get update
+FROM blackdigger/okkobase
+MAINTAINER okko
 
 # Install Cassandra
 RUN echo "deb http://debian.datastax.com/community stable main" | sudo tee -a /etc/apt/sources.list.d/datastax.sources.list
